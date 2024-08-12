@@ -2,8 +2,8 @@ import { useRef, useState } from "react"
 import Header from "../components/header"
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { RiErrorWarningLine } from "react-icons/ri";
-import { validateEmail, validatePassword } from "../utils/validateData";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { validateEmail, validatePassword } from "../hooks/validateData";
+import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 
 
 const Login = () => {
@@ -12,7 +12,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState({})
     const email = useRef(null)
     const password = useRef(null)
-
+    const[authError,setAuthError]=useState('')
     const formBtn = () => {
         const emailMessage = validateEmail(email.current.value)
         const passwordMessage = validatePassword(password.current.value)
@@ -24,7 +24,7 @@ const Login = () => {
         if (passwordMessage && emailMessage) return;
 
         if (!isSignInForm) {
-            // signIn logic
+            // signUp logic
             const auth = getAuth()
 
             createUserWithEmailAndPassword(auth,
@@ -40,13 +40,28 @@ const Login = () => {
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
+                    setAuthError('Some thing went wrong while registering user')
                     // ..
                 });
 
         }
         else {
-            // signup logic
+            // signIn logic
 
+            const auth = getAuth();
+            signInWithEmailAndPassword(auth,  email.current.value,
+                password.current.value)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    // ...
+                    console.log(user)
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setAuthError('User not found! Please SignUp first')
+                });
 
         }
 
@@ -87,6 +102,11 @@ const Login = () => {
                 }
 
                 <button onClick={formBtn} className="rounded-md bg-red-600 p-3 my-3 w-full">{isSignInForm ? 'Sign In' : 'Sign Up'}</button>
+                {
+                    authError&& <p className="text-sign-in-red text-center font-semibold">
+                        {authError}
+                    </p>
+                }
                 <p className="text-white my-2">Forgot password</p>
                 <p className="text-white">{isSignInForm ? 'New to Netflix?' : 'All ready a user?'}
                     <span onClick={() => setIsSignForm(!isSignInForm)} className="text-white font-bold cursor-pointer">
