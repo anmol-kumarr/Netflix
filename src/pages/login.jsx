@@ -4,9 +4,11 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { validateEmail, validatePassword } from "../hooks/validateData";
 import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
-
+// import { auth } from "../firebase/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate=useNavigate()
     const [showPassword, setShowPasssword] = useState(false)
     const [isSignInForm, setIsSignForm] = useState(true)
     const [errorMessage, setErrorMessage] = useState({})
@@ -25,8 +27,8 @@ const Login = () => {
 
         if (!isSignInForm) {
             // signUp logic
-            const auth = getAuth()
-
+    
+            const auth=getAuth()
             createUserWithEmailAndPassword(auth,
                 email.current.value,
                 password.current.value
@@ -36,10 +38,12 @@ const Login = () => {
                     const user = userCredential.user;
                     // ...
                     console.log(user)
+                    navigate('/browse')
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
+                    console.log(errorMessage)
                     setAuthError('Some thing went wrong while registering user')
                     // ..
                 });
@@ -48,7 +52,7 @@ const Login = () => {
         else {
             // signIn logic
 
-            const auth = getAuth();
+            const auth=getAuth()
             signInWithEmailAndPassword(auth,  email.current.value,
                 password.current.value)
                 .then((userCredential) => {
@@ -56,6 +60,7 @@ const Login = () => {
                     const user = userCredential.user;
                     // ...
                     console.log(user)
+                    navigate('/browse')
                 })
                 .catch((error) => {
                     const errorCode = error.code;
