@@ -3,22 +3,26 @@ import Header from "../components/header"
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { validateEmail, validatePassword } from "../hooks/validateData";
-import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 // import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 const Login = () => {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [showPassword, setShowPasssword] = useState(false)
     const [isSignInForm, setIsSignForm] = useState(true)
     const [errorMessage, setErrorMessage] = useState({})
     const email = useRef(null)
     const password = useRef(null)
-    const[authError,setAuthError]=useState('')
+    const name = useRef(null)
+    const [authError, setAuthError] = useState('')
+    const dispatch=useDispatch()
+
     const formBtn = () => {
         const emailMessage = validateEmail(email.current.value)
         const passwordMessage = validatePassword(password.current.value)
-        console.log(emailMessage, passwordMessage)
+        // console.log(emailMessage, passwordMessage)
         setErrorMessage({ email: emailMessage, password: passwordMessage })
         // console.log(errorMessage)
 
@@ -27,8 +31,8 @@ const Login = () => {
 
         if (!isSignInForm) {
             // signUp logic
-    
-            const auth=getAuth()
+
+            const auth = getAuth()
             createUserWithEmailAndPassword(auth,
                 email.current.value,
                 password.current.value
@@ -37,8 +41,20 @@ const Login = () => {
                     // Signed up 
                     const user = userCredential.user;
                     // ...
-                    console.log(user)
-                    navigate('/browse')
+                    // console.log(user)
+                    updateProfile(user, {
+                        displayName: name.current.value
+                    }).then(() => {
+                        const { uid, email, displayName } = auth.currentUser
+                        dispatch(addUser({ uid: uid, email: email, displayName: displayName }))
+                        // Profile updated!
+                        navigate('/browse')
+                        // ...
+                    }).catch((error) => {
+                        // An error occurred
+                        // ...
+                    });
+
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -52,14 +68,14 @@ const Login = () => {
         else {
             // signIn logic
 
-            const auth=getAuth()
-            signInWithEmailAndPassword(auth,  email.current.value,
+            const auth = getAuth()
+            signInWithEmailAndPassword(auth, email.current.value,
                 password.current.value)
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
                     // ...
-                    console.log(user)
+                    // console.log(user)
                     navigate('/browse')
                 })
                 .catch((error) => {
@@ -82,7 +98,7 @@ const Login = () => {
                 <h2 className="font-bold text-3xl my-3 text-center">{isSignInForm ? 'Sign In' : 'Sign Up'}</h2>
 
                 {
-                    !isSignInForm && <input className="rounded-md bg-input-grey p-3 outline-none border-none my-3 w-full" type="text" placeholder="Enter Your Full Name" />
+                    !isSignInForm && <input ref={name} className="rounded-md bg-input-grey p-3 outline-none border-none my-3 w-full" type="text" placeholder="Enter Your Full Name" />
                 }
                 <input ref={email} className={`rounded-md bg-input-grey p-3 outline-none my-3 w-full
                     ${errorMessage.email ? 'border-solid border-2 border-sign-in-red' : 'border-none'}`} type="email" placeholder="Enter Your email" />
@@ -108,7 +124,7 @@ const Login = () => {
 
                 <button onClick={formBtn} className="rounded-md bg-red-600 p-3 my-3 w-full">{isSignInForm ? 'Sign In' : 'Sign Up'}</button>
                 {
-                    authError&& <p className="text-sign-in-red text-center font-semibold">
+                    authError && <p className="text-sign-in-red text-center font-semibold">
                         {authError}
                     </p>
                 }
