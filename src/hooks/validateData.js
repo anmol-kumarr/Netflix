@@ -9,9 +9,9 @@ export const validateEmail = (email) => {
 
 export const validatePassword = (password) => {
     if(password.length<8) return 'Password must contain at least 8 character'
-    if(!(/^(?=.*[a-z]).*$/).test(password)) return 'Password must contain a Lowercase character'
-    if(!(/^(?=.*[A-Z]).*$/).test(password)) return 'Password must contain a Uppercase character'
-    if(!(/^(?=.*[0-9]).*$/).test(password)) return 'Password must contain a Number'
-    if( !(/^(?=.*[~`!@#$%^&*()--+={}[\]|\\:;"'<>,.?/_₹]).*$/).test(password)) return 'Password must contain a Special Character'
+    // if(!(/^(?=.*[a-z]).*$/).test(password)) return 'Password must contain a Lowercase character'
+    // if(!(/^(?=.*[A-Z]).*$/).test(password)) return 'Password must contain a Uppercase character'
+    // if(!(/^(?=.*[0-9]).*$/).test(password)) return 'Password must contain a Number'
+    // if( !(/^(?=.*[~`!@#$%^&*()--+={}[\]|\\:;"'<>,.?/_₹]).*$/).test(password)) return 'Password must contain a Special Character'
     else return null
 }
