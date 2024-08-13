@@ -10,7 +10,8 @@ const Header = () => {
     // console.log(path)
     // console.log(userLoggedIn)
     const [isScrolled, setIsScrolled] = useState(false);
-    const { displayName } = useSelector(state => state.user)
+    const user = useSelector(state => state.user)
+    // const { displayName } = useSelector(state => state?.user)
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 50) {
@@ -58,13 +59,13 @@ const Header = () => {
                         <div className="flex items-center gap-5">
                             <IoSearch className="text-2xl" />
 
-                            
+
                             <img className="rounded-sm h-10" src="https://occ-0-2610-3646.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABTZ2zlLdBVC05fsd2YQAR43J6vB1NAUBOOrxt7oaFATxMhtdzlNZ846H3D8TZzooe2-FT853YVYs8p001KVFYopWi4D4NXM.png?r=229" alt="" />
-                            <p>
-                                {displayName.length>5 ?
-                                displayName.slice(0,5)
-                                :displayName }
-                            </p>
+                            {/* <p>
+                                {displayName && displayName.length > 5 ?
+                                    displayName.slice(0, 5)
+                                    : displayName}
+                            </p> */}
 
 
                             <button onClick={signOutHandler}>Sign Out</button>

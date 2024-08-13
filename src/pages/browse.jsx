@@ -1,10 +1,14 @@
 import Header from "../components/header"
+import useNowPlayingMovie from "../hooks/useNowPlayingMovie"
 
-const Browse=()=>{
-    return(
+const Browse = () => {
+
+    useNowPlayingMovie()
+    
+    return (
         <>
-        <Header></Header>
-        Browse
+            <Header></Header>
+            Browse
         </>
     )
 }

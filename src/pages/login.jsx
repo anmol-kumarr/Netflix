@@ -2,7 +2,7 @@ import { useRef, useState } from "react"
 import Header from "../components/header"
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { RiErrorWarningLine } from "react-icons/ri";
-import { validateEmail, validatePassword } from "../hooks/validateData";
+import { validateEmail, validatePassword } from "../utils/validateData";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 // import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
