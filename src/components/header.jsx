@@ -7,8 +7,7 @@ import { removeUser } from "../utils/userSlice";
 const Header = () => {
     // const userLoggedIn = useSelector(state => state.user)
     const path = useLocation()
-    // console.log(path)
-    // console.log(userLoggedIn)
+
     const [isScrolled, setIsScrolled] = useState(false);
     const user = useSelector(state => state.user)
     // const { displayName } = useSelector(state => state?.user)
@@ -38,7 +37,7 @@ const Header = () => {
         });
     }
     return (
-        <div className={`fixed  bg-gradient-to-b from-black z-10 w-full top-0 left-0 transition-colors duration-600 ${isScrolled && path.pathname !== '/' ? 'bg-black' : 'bg-transparent'
+        <div className={`fixed  bg-gradient-to-b from-black z-50 w-full top-0 left-0 transition-colors duration-600 ${isScrolled && path.pathname !== '/' ? 'bg-black text-white' : 'bg-transparent text-white'
             }`} >
             <div className="flex justify-between px-5">
 
