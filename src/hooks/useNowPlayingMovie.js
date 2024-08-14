@@ -10,8 +10,7 @@ const useNowPlayingMovie = () => {
         try {
             const response = await fetch(url, options)
             const apiData = await response.json()
-            console.log(apiData)
-            // setData(apiData)
+        
             dispatch(addNowPlayingMovie(apiData))
         }
         catch (err) {
