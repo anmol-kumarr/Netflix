@@ -3,20 +3,26 @@ import Header from "../components/header"
 import useNowPlayingMovie from "../hooks/useNowPlayingMovie"
 import VideoCard from "../components/videoCard"
 import { ImVolumeMute2, ImVolumeMute } from "react-icons/im";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import useFetchData from "../hooks/useFetchData";
 import { addPopular } from "../utils/movieSlice";
-import { imageUrl} from "../constant";
+import { imageUrl, } from "../constant";
+import ReactSimplyCarousel from 'react-simply-carousel';
+import { MdArrowBackIosNew } from "react-icons/md";
+import { MdOutlineArrowForwardIos } from "react-icons/md";
+import Carousel from "../components/Crousal";
 
 const Browse = () => {
     const movie = useSelector(store => store.movies?.nowPlayingMovies)
 
     const [mute, setMute] = useState(true)
+    const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+
     useNowPlayingMovie()
     useFetchData('https://api.themoviedb.org/3/movie/popular', addPopular)
+
     const popular = useSelector(state => state.movies.popular)
-    // useFetchData(,addPopular)
     if (!movie) return null
     const random = Math.floor(Math.random() * (20 - 1) + 1)
     const singleMovie = movie?.results[random]
@@ -29,7 +35,7 @@ const Browse = () => {
                 <Header></Header>
                 <div className="relative">
                     <VideoCard mute={mute} singleMovie={singleMovie} ></VideoCard>
-                    <div className="w-screen aspect-video pt-[25%] absolute z-30 bg-gradient-to-r from-black ">
+                    <div className="  shadow-xl shadow-black w-screen aspect-video pt-[25%] absolute z-30 bg-gradient-to-r from-black ">
 
 
                         <div className="w-2/4 p-5 font-Gilroy">
@@ -56,35 +62,17 @@ const Browse = () => {
                 </div>
 
             </div>
-            <div className="bg-netflix-bg">
-                <div>
-                    <h2 className="text-white">Popular Movies</h2>
-                    <div className="my-10">
+            <div className="bg-netflix-bg ">
+                <div className="h-screen pt-4 ">
+                    <div className="max-w-[1300px] mx-auto my-7">
+
+
+
+                        <h2 className="text-white z-30 font-Gilroy font-semibold text-2xl m-5">Popular Movies</h2>
                         {
-                            !popular > 0 ? (
-                                <>
+                            popular !== null && <Carousel movieData={popular}></Carousel>
 
-                        
-
-                                </>
-                            ) : (
-                                <>
-
-
-                                    {
-                                        popular.map((item) => (
-                                            <div className="">
-
-                                                <img className="mx-2" src={imageUrl + item?.poster_path} alt="" height={250} width={230} />
-                                            </div>
-                                        ))
-                                    }
-
-                                </>
-                            )
                         }
-
-
 
                     </div>
                 </div>
