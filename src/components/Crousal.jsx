@@ -3,13 +3,18 @@ import ReactSimplyCarousel from 'react-simply-carousel';
 import { MdArrowBackIosNew } from "react-icons/md";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { imageUrl, } from "../constant";
+import VideoModal from "./videoModal";
 const Carousel = ({ movieData }) => {
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
     // console.log(movieData)
-    const [visibleVideo, setVisibleVideo] = useState(false)
-    const handleVideo = () => {
-        setVisibleVideo(true)
+    const [visibleVideo, setVisibleVideo] = useState(null)
+    const playVideo = (id) => {
+        setVisibleVideo(id)
     }
+    const pauseVideo=(id)=>{
+        setVisibleVideo(null)
+    }
+
     return (
 
         <div className="relative">
@@ -84,13 +89,18 @@ const Carousel = ({ movieData }) => {
 
                 {
                     movieData.map((item) => (
-                    
-                        <div onMouseEnter={handleVideo} key={item.id} className="m-2  h-[300px] p-2 w-[200px] ">
-                            <img className="h-[100%] rounded-md" src={imageUrl + item?.poster_path} alt="" />
+
+                        <div onMouseLeave={()=>pauseVideo(item.id)} onMouseEnter={() => playVideo(item.id)} key={item.id} className="m-2  h-[300px] p-2 w-[200px] ">
+                            {
+                                visibleVideo!==item.id ? <img className="h-[100%] rounded-md" src={imageUrl + item?.poster_path} alt="" /> :<div className="bg-white   scale-150">
+                                <VideoModal item={item}></VideoModal>
+                                </div>
+                            }
+
                         </div>
 
 
-                    
+
                     ))
                 }
             </ReactSimplyCarousel>
