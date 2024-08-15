@@ -3,6 +3,7 @@ import { options } from "../constant";
 import { useDispatch } from "react-redux";
 import { addTrailerVideo } from "../utils/movieSlice";
 const useVideo=(singleMovie)=>{
+    const[id,setId]=useState(null)
     const dispatch=useDispatch()
     const fetchData = async () => {
         const url = `https://api.themoviedb.org/3/movie/${singleMovie.id}/videos?language=en-US`;
@@ -14,10 +15,10 @@ const useVideo=(singleMovie)=>{
         dispatch(addTrailerVideo(videoData.key))
     
     
-
     }
     useEffect(() => {
         fetchData()
     }, [singleMovie])
+
 }
 export default useVideo
