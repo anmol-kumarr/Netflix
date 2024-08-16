@@ -6,7 +6,7 @@ const FavouriteSlice=createSlice({
         watchLater:[],
         liked:[]
     },
-    reducer:{
+    reducers:{
         addWatchLater:(state,action)=>{
             state.watchLater.push(action.payload)
         },
