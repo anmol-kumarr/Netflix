@@ -4,7 +4,7 @@ import { MdArrowBackIosNew } from "react-icons/md";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { imageUrl, } from "../constant";
 import VideoModal from "./videoModal";
-const Carousel = ({ movieData }) => {
+const Carousel = ({ Data ,categories}) => {
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
     // console.log(movieData)
     const [visibleVideo, setVisibleVideo] = useState(null)
@@ -88,12 +88,12 @@ const Carousel = ({ movieData }) => {
             >
 
                 {
-                    movieData.map((item) => (
+                    Data.map((item) => (
 
                         <div onMouseLeave={()=>pauseVideo(item.id)} onMouseEnter={() => playVideo(item.id)} key={item.id} className='m-2  h-[300px] p-2 w-[200px]'>
                             {
                                 visibleVideo!==item.id ? <img className="h-[100%] rounded-md" src={imageUrl + item?.poster_path} alt="" /> :<div className=" scale-150">
-                                <VideoModal item={item}></VideoModal>
+                                <VideoModal categories={categories} item={item}></VideoModal>
                                 </div>
                             }
 
