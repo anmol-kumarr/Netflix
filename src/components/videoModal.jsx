@@ -2,8 +2,8 @@ import usefetchVideo from "../hooks/usefetchvideo"
 import { FaPlay } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
-const VideoModal = ({ item }) => {
-    const id = usefetchVideo(item)
+const VideoModal = ({ item,categories }) => {
+    const id = usefetchVideo(item,categories)
     console.log(item)
     return (
         <div className="pt-6 bg-black w-[230px]">

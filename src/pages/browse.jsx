@@ -6,21 +6,23 @@ import { ImVolumeMute2, ImVolumeMute } from "react-icons/im";
 import { useEffect, useState } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import useFetchData from "../hooks/useFetchData";
-import { addPopular } from "../utils/movieSlice";
-import { imageUrl, } from "../constant";
-import ReactSimplyCarousel from 'react-simply-carousel';
-import { MdArrowBackIosNew } from "react-icons/md";
-import { MdOutlineArrowForwardIos } from "react-icons/md";
+import { addPopular, addTopRated, addTvSeries, addUpcoming } from "../utils/movieSlice";
 import Carousel from "../components/Crousal";
 
 const Browse = () => {
     const movie = useSelector(store => store.movies?.nowPlayingMovies)
-
+    const tvSeries = useSelector(store => store.movies?.tvSeries)
+    const upcoming = useSelector(store => store.movies?.upcoming)
+    const topRated = useSelector(store => store.movies?.topRated)
+    // console.log(tvSeries)
     const [mute, setMute] = useState(true)
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
     useNowPlayingMovie()
     useFetchData('https://api.themoviedb.org/3/movie/popular', addPopular)
+    useFetchData('https://api.themoviedb.org/3/movie/upcoming', addUpcoming)
+    useFetchData('https://api.themoviedb.org/3/tv/popular', addTvSeries)
+    useFetchData('https://api.themoviedb.org/3/movie/top_rated', addTopRated)
 
     const popular = useSelector(state => state.movies.popular)
     if (!movie) return null
@@ -62,17 +64,39 @@ const Browse = () => {
                 </div>
 
             </div>
+
+
             <div className="bg-netflix-bg ">
-                <div className="h-screen pt-4 ">
+                <div className="pt-8 ">
                     <div className="max-w-[1300px] mx-auto my-7">
 
 
+                        <div>
 
-                        <h2 className="text-white z-30 font-Gilroy font-semibold text-2xl m-5">Popular Movies</h2>
-                        {
-                            popular !== null && <Carousel movieData={popular}></Carousel>
+                            <h2 className="text-white z-30 font-Gilroy font-semibold text-2xl m-5">Popular Movies</h2>
+                            {
+                                popular !== null && <Carousel categories={'movie'} Data={popular}></Carousel>
 
-                        }
+                            }
+                        </div>
+                        <div>
+                            <h2 className=" text-white z-30 font-Gilroy font-semibold text-2xl m-5">Top Rated</h2>
+                            {
+                                upcoming !== null && <Carousel categories={'movie'} Data={topRated}></Carousel>
+                            }
+                        </div>
+                        <div>
+                            <h2 className=" text-white z-30 font-Gilroy font-semibold text-2xl m-5">Tv Series</h2>
+                            {
+                                tvSeries !== null && <Carousel categories={'tv'} Data={tvSeries}></Carousel>
+                            }
+                        </div>
+                        <div>
+                            <h2 className=" text-white z-30 font-Gilroy font-semibold text-2xl m-5">Upcoming</h2>
+                            {
+                                upcoming !== null && <Carousel categories={'movie'} Data={upcoming}></Carousel>
+                            }
+                        </div>
 
                     </div>
                 </div>
@@ -82,3 +106,4 @@ const Browse = () => {
     )
 }
 export default Browse
+
