@@ -90,9 +90,9 @@ const Carousel = ({ movieData }) => {
                 {
                     movieData.map((item) => (
 
-                        <div onMouseLeave={()=>pauseVideo(item.id)} onMouseEnter={() => playVideo(item.id)} key={item.id} className="m-2  h-[300px] p-2 w-[200px] ">
+                        <div onMouseLeave={()=>pauseVideo(item.id)} onMouseEnter={() => playVideo(item.id)} key={item.id} className='m-2  h-[300px] p-2 w-[200px]'>
                             {
-                                visibleVideo!==item.id ? <img className="h-[100%] rounded-md" src={imageUrl + item?.poster_path} alt="" /> :<div className="bg-white   scale-150">
+                                visibleVideo!==item.id ? <img className="h-[100%] rounded-md" src={imageUrl + item?.poster_path} alt="" /> :<div className=" scale-150">
                                 <VideoModal item={item}></VideoModal>
                                 </div>
                             }
