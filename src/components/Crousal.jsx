@@ -6,7 +6,7 @@ import { imageUrl, } from "../constant";
 import VideoModal from "./videoModal";
 const Carousel = ({ Data ,categories}) => {
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-    console.log(Data)
+    // console.log(Data)
     const [visibleVideo, setVisibleVideo] = useState(null)
     const playVideo = (id) => {
         setVisibleVideo(id)

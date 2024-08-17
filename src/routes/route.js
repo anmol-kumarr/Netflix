@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Browse from "../pages/browse";
 import Login from "../pages/login";
 import ForgotPass from "../pages/forgotPass";
-import { useSelector } from "react-redux";
 import ProtectedRoute from "./protectedRoute";
 
 

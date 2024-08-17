@@ -1,12 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate, } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { addUser, removeUser } from "../utils/userSlice";
-import { getAnalytics } from "firebase/analytics";
-import { firebaseConfig } from "../firebase/firebase";
-import { initializeApp } from "firebase/app";
+import { getAuth,signOut } from "firebase/auth";
+
 const Header = () => {
 
     

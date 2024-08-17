@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react"
-import { options } from "../constant"
 import useVideo from "../hooks/useVideo"
 import { useSelector } from "react-redux"
 

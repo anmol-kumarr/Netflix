@@ -3,7 +3,7 @@ import Header from "../components/header"
 import useNowPlayingMovie from "../hooks/useNowPlayingMovie"
 import VideoCard from "../components/videoCard"
 import { ImVolumeMute2, ImVolumeMute } from "react-icons/im";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import useFetchData from "../hooks/useFetchData";
 import { addPopular, addTopRated, addTrending, addUpcoming } from "../utils/movieSlice";

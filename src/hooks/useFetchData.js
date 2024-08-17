@@ -1,6 +1,5 @@
-import { CgAttachment } from "react-icons/cg"
 import { options } from "../constant"
-import { useEffect, useState } from "react"
+import { useEffect} from "react"
 import { useDispatch } from "react-redux"
 
 const useFetchData=(url,fn)=>{
@@ -10,7 +9,7 @@ const useFetchData=(url,fn)=>{
         try{
             const response=await fetch(url,options)
             const data=await response.json()
-            console.log(data)
+            // console.log(data)
         
             dispatch(fn(data.results))
         }
