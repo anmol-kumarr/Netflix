@@ -74,10 +74,11 @@ const VideoModal = ({ item, categories }) => {
 
                         <div onClick={watchLaterHandler} className="relative flex justify-center items-center cursor-pointer text-xs w-6 h-6 border-solid border-[1.4px] border-input-grey text-input-grey  rounded-full">
                             {
-                                watchLater ? <SiTicktick className="peer" /> : <FaPlus className="peer" />
+                                watchLater && <SiTicktick className="peer" /> 
                             }
-
-
+                            {
+                                !watchLater &&  <FaPlus className="peer" /> 
+                            }
 
                             <div className="text-black  peer-hover:block hidden  absolute bottom-6 left-0">
                                 <p className="rounded-md p-1 text-[10px] text-center w-[70px] font-Gilroy bg-white">Watch later</p>

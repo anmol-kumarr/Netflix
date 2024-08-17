@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Header from "../components/header"
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { RiErrorWarningLine } from "react-icons/ri";
@@ -8,6 +8,8 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, up
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { sendEmailVerification } from "firebase/auth";
+import { toast } from "react-toastify";
 const Login = () => {
     const navigate = useNavigate()
     const [showPassword, setShowPasssword] = useState(false)
@@ -17,7 +19,31 @@ const Login = () => {
     const password = useRef(null)
     const name = useRef(null)
     const [authError, setAuthError] = useState('')
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
+
+    const [isVerificationSent, setIsVerificationSent] = useState(false);
+    // const forgetPass=()=>{
+    //     navigate('/forget')
+    // }
+
+    const auth = getAuth()
+    useEffect(() => {
+        if (isVerificationSent) {
+            const intervalId = setInterval(() => {
+                auth.currentUser.reload().then(() => {
+                    if (auth.currentUser.emailVerified) {
+                        const { uid, email, displayName } = auth.currentUser;
+                        dispatch(addUser({ uid, email, displayName }));
+                        clearInterval(intervalId);
+                        navigate('/browse');
+                    }
+                });
+            }, 3000); // Check every 3 seconds
+
+            return () => clearInterval(intervalId); // Cleanup on unmount
+        }
+    }, [isVerificationSent, auth, dispatch, navigate]);
+
 
     const formBtn = () => {
         const emailMessage = validateEmail(email.current.value)
@@ -27,7 +53,9 @@ const Login = () => {
         // console.log(errorMessage)
 
 
+
         if (passwordMessage && emailMessage) return;
+
 
         if (!isSignInForm) {
             // signUp logic
@@ -45,10 +73,20 @@ const Login = () => {
                     updateProfile(user, {
                         displayName: name.current.value
                     }).then(() => {
-                        const { uid, email, displayName } = auth.currentUser
-                        dispatch(addUser({ uid: uid, email: email, displayName: displayName }))
+                        // const { uid, email, displayName } = auth.currentUser
+                        // dispatch(addUser({ uid: uid, email: email, displayName: displayName }))
+
+
+
+                        sendEmailVerification(auth.currentUser)
+                            .then(() => {
+                                // Email verification sent!
+                                // ...
+                                window.alert('Verification link is sent')
+                                setIsVerificationSent(true);
+                            });
                         // Profile updated!
-                        navigate('/browse')
+                        // navigate('/browse')
                         // ...
                     }).catch((error) => {
                         // An error occurred
@@ -128,7 +166,10 @@ const Login = () => {
                         {authError}
                     </p>
                 }
-                <p className="text-white my-2">Forgot password</p>
+                {
+                    isSignInForm && <p onClick={()=>navigate('/forget password')} className=" cursor-pointer text-white my-2">Forgot password</p>
+                }
+
                 <p className="text-white">{isSignInForm ? 'New to Netflix?' : 'All ready a user?'}
                     <span onClick={() => setIsSignForm(!isSignInForm)} className="text-white font-bold cursor-pointer">
                         {isSignInForm ? ' Sign up now.' : ' Sign in now'}
