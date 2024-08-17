@@ -28,7 +28,7 @@ const VideoModal = ({ item, categories }) => {
             toast('Removed from liked');
         }
 
-    }, [likedList])
+    },[likedList])
 
 
     useEffect(() => {

@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate, } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { useEffect, useState } from "react";
@@ -11,7 +10,7 @@ const Header = () => {
     const path = useLocation()
 
     const [isScrolled, setIsScrolled] = useState(false);
-    const user = useSelector(state => state.user)
+    // const user = useSelector(state => state.user)
     // const { displayName } = useSelector(state => state?.user)
     useEffect(() => {
         const handleScroll = () => {
