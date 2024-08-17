@@ -6,7 +6,7 @@ import { imageUrl, } from "../constant";
 import VideoModal from "./videoModal";
 const Carousel = ({ Data ,categories}) => {
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-    // console.log(movieData)
+    console.log(Data)
     const [visibleVideo, setVisibleVideo] = useState(null)
     const playVideo = (id) => {
         setVisibleVideo(id)
@@ -88,7 +88,7 @@ const Carousel = ({ Data ,categories}) => {
             >
 
                 {
-                    Data.map((item) => (
+                    Data&& Data.map((item) => (
 
                         <div onMouseLeave={()=>pauseVideo(item.id)} onMouseEnter={() => playVideo(item.id)} key={item.id} className='m-2  h-[300px] p-2 w-[200px]'>
                             {
