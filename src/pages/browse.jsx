@@ -17,7 +17,7 @@ const Browse = () => {
     const topRated = useSelector(store => store.movies?.topRated)
     // console.log(tvSeries)
     const [mute, setMute] = useState(true)
-    const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+    // const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
     useNowPlayingMovie()
     useFetchData('https://api.themoviedb.org/3/movie/popular', addPopular)

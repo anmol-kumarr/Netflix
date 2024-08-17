@@ -95,7 +95,7 @@ const Login = () => {
 
                 })
                 .catch((error) => {
-                    const errorCode = error.code;
+                    // const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(errorMessage)
                     setAuthError('Some thing went wrong while registering user')
@@ -111,14 +111,14 @@ const Login = () => {
                 password.current.value)
                 .then((userCredential) => {
                     // Signed in 
-                    const user = userCredential.user;
+                    // const user = userCredential.user;
                     // ...
                     // console.log(user)
                     navigate('/browse')
                 })
                 .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
+                    // const errorCode = error.code;
+                    // const errorMessage = error.message;
                     setAuthError('User not found! Please SignUp first')
                 });
 

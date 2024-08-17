@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { options } from "../constant";
 import { useDispatch } from "react-redux";
 import { addTrailerVideo } from "../utils/movieSlice";
 const useVideo=(singleMovie)=>{
-    const[id,setId]=useState(null)
+    // const[id,setId]=useState(null)
     const dispatch=useDispatch()
     const fetchData = async () => {
         const url = `https://api.themoviedb.org/3/movie/${singleMovie.id}/videos?language=en-US`;
