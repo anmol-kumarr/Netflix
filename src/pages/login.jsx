@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { sendEmailVerification } from "firebase/auth";
-import { toast } from "react-toastify";
+
 const Login = () => {
     const navigate = useNavigate()
     const [showPassword, setShowPasssword] = useState(false)
@@ -38,9 +38,9 @@ const Login = () => {
                         navigate('/browse');
                     }
                 });
-            }, 3000); // Check every 3 seconds
+            }, 3000); 
 
-            return () => clearInterval(intervalId); // Cleanup on unmount
+            return () => clearInterval(intervalId); 
         }
     }, [isVerificationSent, auth, dispatch, navigate]);
 

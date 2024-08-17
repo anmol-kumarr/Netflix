@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, RouterProvider, useNavigate } from 'react-router-dom';
 import appRouter from './routes/route';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './firebase/firebase';
@@ -21,13 +21,17 @@ function App() {
       if (user) {
         const { uid, email, displayName } = user
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }))
+        localStorage.setItem('user',uid)
       }
       else {
         dispatch(removeUser())
+        localStorage.removeItem('user')
+
       }
     })
 
   }, [])
+
   return (
     <>
       <RouterProvider router={appRouter}></RouterProvider>

@@ -2,9 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate, } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { getAuth, signOut } from "firebase/auth";
-import { removeUser } from "../utils/userSlice";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { addUser, removeUser } from "../utils/userSlice";
+import { getAnalytics } from "firebase/analytics";
+import { firebaseConfig } from "../firebase/firebase";
+import { initializeApp } from "firebase/app";
 const Header = () => {
+
+    
     // const userLoggedIn = useSelector(state => state.user)
     const path = useLocation()
 
@@ -36,6 +41,7 @@ const Header = () => {
             // An error happened.
         });
     }
+
     return (
         <div className={`fixed  bg-gradient-to-b from-black z-50 w-full top-0 left-0 transition-colors duration-600 ${isScrolled && path.pathname !== '/' ? 'bg-black text-white' : 'bg-transparent text-white'
             }`} >
