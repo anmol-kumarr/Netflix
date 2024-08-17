@@ -17,14 +17,12 @@ const ForgotPass = () => {
             const auth = getAuth();
             sendPasswordResetEmail(auth, email)
                 .then(() => {
-                    // Password reset email sent!
-                    // ..
                     window.alert('Mail send successfully ')
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    // ..
+                
                 });
         }
     }
@@ -46,7 +44,7 @@ const ForgotPass = () => {
                         {warning}
                     </p>
                 }
-                <p onClick={() => navigate('/')} className="my-4 text-center font-medium cursor-pointer text-white font-Gilroy ">Go to SignIn page</p>
+                <p onClick={() => navigate('/')} className="mt-2 text-center font-medium cursor-pointer text-white font-Gilroy ">Go to SignIn page</p>
             </div>
         </div>
     )
