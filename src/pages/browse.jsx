@@ -6,12 +6,13 @@ import { ImVolumeMute2, ImVolumeMute } from "react-icons/im";
 import { useEffect, useState } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import useFetchData from "../hooks/useFetchData";
-import { addPopular, addTopRated, addTvSeries, addUpcoming } from "../utils/movieSlice";
+import { addPopular, addTopRated, addTrending, addUpcoming } from "../utils/movieSlice";
 import Carousel from "../components/Crousal";
+import Footer from "../components/footer";
 
 const Browse = () => {
     const movie = useSelector(store => store.movies?.nowPlayingMovies)
-    const tvSeries = useSelector(store => store.movies?.tvSeries)
+    const trending = useSelector(store => store.movies?.trending)
     const upcoming = useSelector(store => store.movies?.upcoming)
     const topRated = useSelector(store => store.movies?.topRated)
     // console.log(tvSeries)
@@ -21,7 +22,7 @@ const Browse = () => {
     useNowPlayingMovie()
     useFetchData('https://api.themoviedb.org/3/movie/popular', addPopular)
     useFetchData('https://api.themoviedb.org/3/movie/upcoming', addUpcoming)
-    useFetchData('https://api.themoviedb.org/3/tv/popular', addTvSeries)
+    useFetchData('https://api.themoviedb.org/3/trending/movie/week', addTrending)
     useFetchData('https://api.themoviedb.org/3/movie/top_rated', addTopRated)
 
     const popular = useSelector(state => state.movies.popular)
@@ -30,7 +31,7 @@ const Browse = () => {
     const singleMovie = movie?.results[random]
 
     return (
-        <div>
+        <div className="bg-netflix-bg">
 
             <div className="aspect-video">
 
@@ -86,9 +87,9 @@ const Browse = () => {
                             }
                         </div>
                         <div>
-                            <h2 className=" text-white z-30 font-Gilroy font-semibold text-2xl m-5">Tv Series</h2>
+                            <h2 className=" text-white z-30 font-Gilroy font-semibold text-2xl m-5">Trending this week</h2>
                             {
-                                tvSeries !== null && <Carousel categories={'tv'} Data={tvSeries}></Carousel>
+                                trending !== null && <Carousel categories={'movie'} Data={trending}></Carousel>
                             }
                         </div>
                         <div>
@@ -101,6 +102,8 @@ const Browse = () => {
                     </div>
                 </div>
             </div>
+            <hr className="width-[1px] bg-white"></hr>
+            <Footer></Footer>
 
         </div>
     )
