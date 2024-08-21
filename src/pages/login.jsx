@@ -127,18 +127,18 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div className="bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/b2c3e95b-b7b5-4bb7-a883-f4bfc7472fb7/19fc1a4c-82db-4481-ad08-3a1dffbb8c39/IN-en-20240805-POP_SIGNUP_TWO_WEEKS-perspective_WEB_24a485f6-1820-42be-9b60-1b066f1eb869_large.jpg')] w-full sm:h-[120vh] h-[100vh] ">
             <Header></Header>
-            <div className="absolute">
-                <img className="" src="https://assets.nflxext.com/ffe/siteui/vlv3/b2c3e95b-b7b5-4bb7-a883-f4bfc7472fb7/19fc1a4c-82db-4481-ad08-3a1dffbb8c39/IN-en-20240805-POP_SIGNUP_TWO_WEEKS-perspective_WEB_24a485f6-1820-42be-9b60-1b066f1eb869_large.jpg" alt="" />
-            </div>
-            <form onClick={(e) => e.preventDefault()} className="w-4/12 text-white bg-form-grey rounded-md p-12 absolute left-0 right-0 mx-auto my-40 z-10" action="#">
+            {/* <div className="absolute">
+                <img className=""  src="https://assets.nflxext.com/ffe/siteui/vlv3/b2c3e95b-b7b5-4bb7-a883-f4bfc7472fb7/19fc1a4c-82db-4481-ad08-3a1dffbb8c39/IN-en-20240805-POP_SIGNUP_TWO_WEEKS-perspective_WEB_24a485f6-1820-42be-9b60-1b066f1eb869_large.jpg" alt="" />
+            </div> */}
+            <form onClick={(e) => e.preventDefault()} className="sm:w-4/12 w-[80%] text-white bg-form-grey rounded-md sm:p-12 p-8 absolute left-0 right-0 mx-auto my-40 z-10" action="#">
                 <h2 className="font-bold text-3xl my-3 text-center">{isSignInForm ? 'Sign In' : 'Sign Up'}</h2>
 
                 {
-                    !isSignInForm && <input ref={name} className="rounded-md bg-input-grey p-3 outline-none border-none my-3 w-full" type="text" placeholder="Enter Your Full Name" />
+                    !isSignInForm && <input ref={name} className="rounded-md bg-input-grey p-3 outline-none border-none my-3  w-full" type="text" placeholder="Enter Your Full Name" />
                 }
-                <input ref={email} className={`rounded-md bg-input-grey p-3 outline-none my-3 w-full
+                <input ref={email} className={`rounded-md bg-input-grey p-3 outline-none my-3 mx-auto sm:w-full w-full
                     ${errorMessage.email ? 'border-solid border-2 border-sign-in-red' : 'border-none'}`} type="email" placeholder="Enter Your email" />
                 {
                     errorMessage.email && <p className="flex items-center text-center gap-1 text-sign-in-red"><RiErrorWarningLine className="" />
@@ -146,7 +146,7 @@ const Login = () => {
                     </p>
                 }
 
-                <div className={`flex ${errorMessage.password && 'border-solid border-2 border-sign-in-red'} justify-between rounded-md bg-input-grey  my-3 p-3 w-full`}>
+                <div className={`flex ${errorMessage.password && 'border-solid border-2 border-sign-in-red'} justify-between rounded-md bg-input-grey  my-3 p-3 sm:w-full w-full`}>
 
                     <input ref={password} className=" w-full rounded-md h-full bg-transparent border-none outline-none" type={showPassword === true ? "text" : "password"} placeholder="Enter Your Password" />
                     <div className="mx-2 my-auto text-lg" onClick={() => setShowPasssword(!showPassword)}>

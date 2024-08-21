@@ -1,11 +1,11 @@
 import { NavLink, useLocation, useNavigate, } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { getAuth,signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 
 const Header = () => {
 
-    
+
     // const userLoggedIn = useSelector(state => state.user)
     const path = useLocation()
 
@@ -39,17 +39,17 @@ const Header = () => {
     }
 
     return (
-        <div className={`fixed  bg-gradient-to-b from-black z-50 w-full top-0 left-0 transition-colors duration-600 ${isScrolled && path.pathname !== '/' ? 'bg-black text-white' : 'bg-transparent text-white'
+        <div className={`fixed  bg-gradient-to-b from-black z-50 w-full top-0 left-0 transition-colors duration-600 ${isScrolled && path.pathname !== '/'  ? 'bg-black text-white' : 'bg-transparent text-white'
             }`} >
-            <div className="flex justify-between px-5">
+            <div className=" flex justify-between px-5">
 
 
-                <img className="w-44" src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png" alt="" />
+                <img className="sm:w-44 w-24" src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png" alt="" />
                 {
 
 
                     path.pathname !== '/' && <>
-                        <div className="flex gap-8 items-center ">
+                        <div className="flex gap-8 items-center sm:opacity-100 opacity-0 ">
                             <NavLink className={({ isActive }) => `${isActive ? 'font-bold' : ''}`} to='/browse'>Home</NavLink>
                             <NavLink to='/tvshows'>Tv Shows</NavLink>
                             <NavLink to='/news and popular'>News & Popular</NavLink>
@@ -57,7 +57,7 @@ const Header = () => {
                         </div>
 
 
-                        <div className="flex items-center gap-5">
+                        <div className="flex items-center gap-5 sm:opacity-100 opacity-0">
                             <IoSearch className="text-2xl" />
 
 
