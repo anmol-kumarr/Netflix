@@ -21,8 +21,8 @@ const Carousel = ({ Data ,categories}) => {
             <ReactSimplyCarousel
                 activeSlideIndex={activeSlideIndex}
                 onRequestChange={setActiveSlideIndex}
-                itemsToShow={2}
-                itemsToScroll={2}
+                itemsToShow={3}
+                itemsToScroll={3}
                 infinite={true}
                 containerProps={
                     {
@@ -46,7 +46,7 @@ const Carousel = ({ Data ,categories}) => {
                         height: 288,
                         lineHeight: 1,
                         textAlign: 'center',
-                        width: 50,
+                        width:35,
                         padding: '10px'
                     },
                     children: <span><MdOutlineArrowForwardIos></MdOutlineArrowForwardIos></span>,
@@ -68,8 +68,9 @@ const Carousel = ({ Data ,categories}) => {
                         height: 288,
                         lineHeight: 1,
                         textAlign: 'center',
-                        width: 50,
-                        padding: '10px'
+                        width: 35,
+                        padding: '10px',
+                        
                     },
                     children: <span><MdArrowBackIosNew></MdArrowBackIosNew></span>,
                 }}
