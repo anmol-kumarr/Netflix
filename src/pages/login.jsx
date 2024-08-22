@@ -3,7 +3,7 @@ import Header from "../components/header"
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { validateEmail, validatePassword } from "../utils/validateData";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged } from "firebase/auth";
 // import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -27,22 +27,7 @@ const Login = () => {
     // }
 
     const auth = getAuth()
-    useEffect(() => {
-        if (isVerificationSent) {
-            const intervalId = setInterval(() => {
-                auth.currentUser.reload().then(() => {
-                    if (auth.currentUser.emailVerified) {
-                        const { uid, email, displayName } = auth.currentUser;
-                        dispatch(addUser({ uid, email, displayName }));
-                        clearInterval(intervalId);
-                        navigate('/browse');
-                    }
-                });
-            }, 3000); 
 
-            return () => clearInterval(intervalId); 
-        }
-    }, [isVerificationSent, auth, dispatch, navigate]);
 
 
     const formBtn = () => {
@@ -84,7 +69,7 @@ const Login = () => {
                                 // ...
                                 window.alert('Verification link is sent')
                                 setIsVerificationSent(true);
-                            });
+                            })
                         // Profile updated!
                         // navigate('/browse')
                         // ...
@@ -125,6 +110,71 @@ const Login = () => {
         }
 
     }
+
+    // useEffect(() => {
+    //     onAuthStateChanged(auth, (user) => {
+    //         if (user) {
+    //             // User is signed in
+    //             if (user.emailVerified) {
+    //                 console.log("Email is verified");
+    //                 // Proceed with application flow for verified users
+    //                 navigate('/browse')
+    //             } else {
+    //                 console.log("Email is not verified");
+    //                 // Prompt user to verify their email
+    //             }
+    //         } else {
+    //             // No user is signed in
+    //             console.log("User is not signed in");
+    //         }
+    //     });
+    // }, [])
+
+
+
+
+
+
+
+
+
+
+
+    // useEffect(() => {
+
+    //     onAuthStateChanged(auth, (user) => {
+    //         if (user) {
+    //             const { uid, email, displayName } = user
+    //             dispatch(addUser({ uid: uid, email: email, displayName: displayName }))
+    //             localStorage.setItem('user', uid)
+    //         }
+    //         else {
+    //             dispatch(removeUser())
+    //             localStorage.removeItem('user')
+
+    //         }
+    //     })
+
+    // }, [])
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+
+            if (isVerificationSent) {
+                const intervalId = setInterval(() => {
+                    auth.currentUser.reload().then(() => {
+                        if (auth.currentUser.emailVerified) {
+                            // const { uid, email, displayName } = auth.currentUser;
+                            // dispatch(addUser({ uid, email, displayName }));
+                            clearInterval(intervalId);
+                            navigate('/browse');
+                        }
+                    });
+                }, 3000);
+
+                return () => clearInterval(intervalId);
+            }
+        })
+    },[isVerificationSent,auth])
 
     return (
         <div className="bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/b2c3e95b-b7b5-4bb7-a883-f4bfc7472fb7/19fc1a4c-82db-4481-ad08-3a1dffbb8c39/IN-en-20240805-POP_SIGNUP_TWO_WEEKS-perspective_WEB_24a485f6-1820-42be-9b60-1b066f1eb869_large.jpg')] w-full sm:h-[120vh] h-[100vh] ">
@@ -167,7 +217,7 @@ const Login = () => {
                     </p>
                 }
                 {
-                    isSignInForm && <p onClick={()=>navigate('/forget password')} className=" cursor-pointer text-white my-2">Forgot password</p>
+                    isSignInForm && <p onClick={() => navigate('/forget password')} className=" cursor-pointer text-white my-2">Forgot password</p>
                 }
 
                 <p className="text-white">{isSignInForm ? 'New to Netflix?' : 'All ready a user?'}
